@@ -1,0 +1,137 @@
+{
+  "entities": {
+    "Plan": {
+      "title": "Plan",
+      "description": "Details about a subscription plan.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "slug": { "type": "string" },
+        "description": { "type": "string" },
+        "features": { "type": "array", "items": { "type": "string" } },
+        "tiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "tier_name": { "type": "string" },
+              "tier_description": { "type": "string" },
+              "is_custom_pricing": { "type": "boolean" },
+              "pricing": {
+                "type": "object",
+                "properties": {
+                  "monthly": { "type": "number", "nullable": true },
+                  "quarterly": { "type": "number", "nullable": true },
+                  "biannual": { "type": "number", "nullable": true }
+                }
+              }
+            }
+          }
+        }
+      },
+      "required": ["name", "slug"]
+    },
+    "ExchangeRate": {
+      "title": "ExchangeRate",
+      "description": "Exchange rates relative to USD.",
+      "type": "object",
+      "properties": {
+        "currency": { "type": "string" },
+        "rate": { "type": "number" }
+      },
+      "required": ["currency", "rate"]
+    },
+    "Customer": {
+      "title": "Customer",
+      "description": "Customer profile mapping to Firebase UID.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "companyName": { "type": "string" },
+        "customerName": { "type": "string" },
+        "email": { "type": "string" }
+      },
+      "required": ["userId", "companyName", "customerName", "email"]
+    },
+    "Subscription": {
+      "title": "Subscription",
+      "description": "Subscription details associated with a customer.",
+      "type": "object",
+      "properties": {
+        "subscriptionId": { "type": "string" },
+        "packageName": { "type": "string" },
+        "packageId": { "type": "string" },
+        "billingCycle": { "type": "string" },
+        "status": { "type": "string" },
+        "startDate": { "type": "string" },
+        "renewalDate": { "type": "string" },
+        "expiryDate": { "type": "string" },
+        "userId": { "type": "string" }
+      },
+      "required": ["subscriptionId", "packageName", "packageId", "billingCycle", "status", "userId"]
+    },
+    "Payment": {
+      "title": "Payment",
+      "description": "Transaction details and payment logs.",
+      "type": "object",
+      "properties": {
+        "transactionId": { "type": "string" },
+        "txRef": { "type": "string" },
+        "invoiceNumber": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "paymentStatus": { "type": "string" },
+        "flutterwaveResponse": { "type": "object" },
+        "userId": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["transactionId", "txRef", "invoiceNumber", "amount", "currency", "paymentStatus", "userId"]
+    },
+    "PendingPayment": {
+      "title": "PendingPayment",
+      "description": "Payment records generated prior to checkout.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "companyName": { "type": "string" },
+        "customerName": { "type": "string" },
+        "email": { "type": "string" },
+        "packageName": { "type": "string" },
+        "packageId": { "type": "string" },
+        "billingCycle": { "type": "string" },
+        "amount": { "type": "number" },
+        "currency": { "type": "string" },
+        "txRef": { "type": "string" },
+        "status": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["companyName", "customerName", "email", "packageName", "packageId", "billingCycle", "amount", "currency", "txRef", "status"]
+    }
+  },
+  "firestore": {
+    "/plans/{planId}": {
+      "schema": { "$ref": "Plan" },
+      "description": "A subscription plan collection."
+    },
+    "/exchange_rates/{currency}": {
+      "schema": { "$ref": "ExchangeRate" },
+      "description": "Stored exchange rates."
+    },
+    "/customers/{userId}": {
+      "schema": { "$ref": "Customer" },
+      "description": "Linked customer profiles."
+    },
+    "/subscriptions/{subscriptionId}": {
+      "schema": { "$ref": "Subscription" },
+      "description": "Customer subscriptions."
+    },
+    "/payments/{transactionId}": {
+      "schema": { "$ref": "Payment" },
+      "description": "Payment transactions."
+    },
+    "/pending_payments/{txRef}": {
+      "schema": { "$ref": "PendingPayment" },
+      "description": "Pre-checkout pending payments."
+    }
+  }
+}

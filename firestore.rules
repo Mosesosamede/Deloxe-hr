@@ -1,0 +1,53 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Global helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    // Default deny catch-all
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Plans
+    match /plans/{planId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Exchange rates
+    match /exchange_rates/{currency} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Customers
+    match /customers/{userId} {
+      allow read: if isOwner(userId);
+      allow write: if isOwner(userId);
+    }
+
+    // Subscriptions
+    match /subscriptions/{subscriptionId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow write: if false; // Only backend can write/update subscriptions
+    }
+
+    // Payments
+    match /payments/{transactionId} {
+      allow read: if isSignedIn() && resource.data.userId == request.auth.uid;
+      allow write: if false; // Only backend can write payments
+    }
+
+    // Pending payments
+    match /pending_payments/{txRef} {
+      allow read, write: if true; // Client needs to create pending payment before checkout
+    }
+  }
+}

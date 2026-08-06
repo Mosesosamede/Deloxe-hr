@@ -1,0 +1,8 @@
+{
+  "name": "Remix Remix Deloxe HR",
+  "description": "Innovative Human Resource Consulting - Where Ambition Meets Opportunity.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
