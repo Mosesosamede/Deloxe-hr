@@ -687,87 +687,109 @@ export default function Home() {
         {/* Promotional Popup Modal */}
         <AnimatePresence>
           {isPopupOpen && (
-            <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-3.5 sm:p-6 overflow-y-auto">
               {/* Soft blur background overlay */}
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                 onClick={handleClosePopup}
-                className="absolute inset-0 bg-charleston/60 backdrop-blur-md"
+                className="fixed inset-0 bg-[#0A0D11]/80 backdrop-blur-md transition-opacity"
               />
               
-              {/* Modern glassmorphism modal */}
+              {/* Modern luxury glassmorphism modal */}
               <motion.div
                 ref={modalRef}
-                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                initial={{ opacity: 0, scale: 0.92, y: 16 }}
                 animate={{ opacity: 1, scale: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.9, y: 20 }}
-                transition={{ type: 'spring', duration: 0.5 }}
-                className="relative w-full max-w-lg bg-[#141b22]/95 border border-white/15 rounded-3xl overflow-hidden shadow-[0_30px_70px_rgba(0,0,0,0.5)] z-10"
+                exit={{ opacity: 0, scale: 0.92, y: 16 }}
+                transition={{ type: 'spring', damping: 25, stiffness: 350 }}
+                className="relative w-full max-w-lg bg-[#0C1015]/95 border border-white/15 rounded-[28px] sm:rounded-[32px] overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.8),0_0_50px_rgba(0,204,136,0.15)] z-10 font-sans my-auto max-h-[90vh] flex flex-col"
                 role="dialog"
                 aria-modal="true"
                 aria-labelledby="modal-title"
               >
-                {/* Gradient header */}
-                <div className="h-2 bg-gradient-to-r from-lemon via-caribbean to-lemon w-full" />
+                {/* Ambient backdrop glow elements */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-caribbean/15 rounded-full blur-[90px] pointer-events-none -translate-y-20 translate-x-20" />
+                <div className="absolute bottom-0 left-0 w-64 h-64 bg-lemon/10 rounded-full blur-[90px] pointer-events-none translate-y-20 -translate-x-20" />
+
+                {/* Top accent line */}
+                <div className="h-1.5 bg-gradient-to-r from-caribbean via-lemon to-caribbean w-full opacity-90 flex-shrink-0" />
                 
-                {/* Modal content */}
-                <div className="p-8">
+                {/* Modal content scrollable container */}
+                <div className="p-5 sm:p-7 md:p-9 relative z-10 overflow-y-auto scrollbar-hide">
                   {/* Close button */}
                   <button
                     onClick={handleClosePopup}
-                    className="absolute top-6 right-6 text-gray-400 hover:text-white hover:bg-white/10 rounded-full p-2 transition-all cursor-pointer"
+                    className="absolute top-4 right-4 sm:top-6 sm:right-6 text-gray-400 hover:text-white bg-white/5 hover:bg-white/15 border border-white/10 rounded-full p-2.5 transition-all duration-200 hover:rotate-90 cursor-pointer shadow-md min-w-[44px] min-h-[44px] flex items-center justify-center z-20"
                     aria-label="Close modal"
                   >
                     <X size={18} />
                   </button>
                   
                   {/* Badge */}
-                  <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-caribbean/10 border border-caribbean/25 text-caribbean text-[11px] font-black uppercase tracking-wider mb-5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-caribbean animate-ping" />
-                    🆕 New Feature
+                  <div className="inline-flex items-center gap-2 px-3 py-1 sm:px-3.5 sm:py-1.5 rounded-full bg-caribbean/10 border border-caribbean/30 text-caribbean text-[10px] sm:text-[11px] font-black uppercase tracking-widest mb-4 sm:mb-6 shadow-sm">
+                    <span className="w-2 h-2 rounded-full bg-caribbean animate-ping" />
+                    <span>Ambassador Portal</span>
                   </div>
                   
-                  <h3 id="modal-title" className="text-2xl md:text-3xl font-display font-bold text-white mb-3">
-                    Become an Internship Ambassador
+                  {/* Title */}
+                  <h3 id="modal-title" className="text-xl sm:text-2xl md:text-3xl font-display font-bold text-white mb-2.5 sm:mb-3 tracking-tight leading-snug pr-8">
+                    Become an <span className="text-transparent bg-clip-text bg-gradient-to-r from-lemon via-caribbean to-white">Internship Ambassador</span>
                   </h3>
                   
-                  <p className="text-gray-300 text-sm md:text-base leading-relaxed mb-6">
-                    Help students and graduates access career training opportunities while earning rewards for every successful referral.
+                  <p className="text-gray-300 text-xs sm:text-sm md:text-base leading-relaxed mb-5 sm:mb-6 font-normal">
+                    Empower students and fresh graduates to discover elite career training while unlocking exclusive referral rewards.
                   </p>
                   
-                  {/* Highlight Box */}
-                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 bg-white/[0.03] border border-white/5 rounded-2xl p-4 mb-8">
-                    <div className="flex items-center gap-2 text-white">
-                      <span className="text-xl">💰</span>
-                      <span className="text-xs font-bold tracking-wide text-gray-200">Earn rewards</span>
+                  {/* Feature Highlights Grid */}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 sm:gap-3 bg-white/[0.03] border border-white/10 rounded-2xl p-3 sm:p-4 mb-6 sm:mb-8 backdrop-blur-sm">
+                    <div className="flex sm:flex-col items-center sm:text-center p-2.5 sm:p-2 rounded-xl bg-white/[0.02] border border-white/5 hover:border-caribbean/30 transition-all group gap-3 sm:gap-0">
+                      <div className="w-8 h-8 rounded-lg bg-lemon/10 text-lemon flex items-center justify-center sm:mb-2 group-hover:scale-110 transition-transform flex-shrink-0">
+                        <Gift size={18} />
+                      </div>
+                      <div className="flex flex-col sm:items-center text-left sm:text-center">
+                        <span className="text-xs font-bold text-gray-200">Earn Rewards</span>
+                        <span className="text-[10px] text-gray-400 sm:mt-0.5">Per referral</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2 text-white">
-                      <span className="text-xl">🎓</span>
-                      <span className="text-xs font-bold tracking-wide text-gray-200">Make an impact</span>
+
+                    <div className="flex sm:flex-col items-center sm:text-center p-2.5 sm:p-2 rounded-xl bg-white/[0.02] border border-white/5 hover:border-caribbean/30 transition-all group gap-3 sm:gap-0">
+                      <div className="w-8 h-8 rounded-lg bg-caribbean/10 text-caribbean flex items-center justify-center sm:mb-2 group-hover:scale-110 transition-transform flex-shrink-0">
+                        <Users size={18} />
+                      </div>
+                      <div className="flex flex-col sm:items-center text-left sm:text-center">
+                        <span className="text-xs font-bold text-gray-200">Help Peers</span>
+                        <span className="text-[10px] text-gray-400 sm:mt-0.5">Launch careers</span>
+                      </div>
                     </div>
-                    <div className="flex items-center gap-2 text-white">
-                      <span className="text-xl">🚀</span>
-                      <span className="text-xs font-bold tracking-wide text-gray-200">Start referring</span>
+
+                    <div className="flex sm:flex-col items-center sm:text-center p-2.5 sm:p-2 rounded-xl bg-white/[0.02] border border-white/5 hover:border-caribbean/30 transition-all group gap-3 sm:gap-0">
+                      <div className="w-8 h-8 rounded-lg bg-white/10 text-white flex items-center justify-center sm:mb-2 group-hover:scale-110 transition-transform flex-shrink-0">
+                        <ArrowRight size={18} />
+                      </div>
+                      <div className="flex flex-col sm:items-center text-left sm:text-center">
+                        <span className="text-xs font-bold text-gray-200">Instant Access</span>
+                        <span className="text-[10px] text-gray-400 sm:mt-0.5">Track live dashboard</span>
+                      </div>
                     </div>
                   </div>
                   
                   {/* Buttons */}
-                  <div className="flex flex-col sm:flex-row gap-3">
+                  <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3">
                     <a
                       href="https://referral.deloxehr.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1 inline-flex items-center justify-center gap-2 bg-lemon hover:bg-lemon/90 text-charleston font-bold py-3.5 px-6 rounded-2xl shadow-[0_8px_20px_-6px_rgba(247,241,103,0.4)] transition-all text-center"
+                      className="group flex-1 inline-flex items-center justify-center gap-2 bg-lemon hover:bg-lemon/95 text-charleston font-bold py-3.5 px-5 rounded-2xl shadow-[0_10px_25px_-4px_rgba(247,241,103,0.35)] hover:shadow-[0_12px_30px_-4px_rgba(247,241,103,0.5)] transition-all text-center text-sm md:text-base active:scale-[0.98] min-h-[48px]"
                     >
-                      Become an Ambassador
-                      <ArrowRight size={16} />
+                      <span>Join Ambassador Program</span>
+                      <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform flex-shrink-0" />
                     </a>
                     
                     <button
                       onClick={handleClosePopup}
-                      className="flex-1 bg-white/[0.05] hover:bg-white/[0.08] text-gray-300 hover:text-white border border-white/10 font-bold py-3.5 px-6 rounded-2xl transition-all cursor-pointer"
+                      className="flex-1 bg-white/[0.05] hover:bg-white/[0.1] text-gray-300 hover:text-white border border-white/10 font-bold py-3.5 px-5 rounded-2xl transition-all cursor-pointer text-sm md:text-base active:scale-[0.98] min-h-[48px]"
                     >
                       Maybe Later
                     </button>
@@ -785,20 +807,22 @@ export default function Home() {
               initial={{ opacity: 0, y: 50, scale: 0.9 }}
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: 20, scale: 0.9 }}
-              className="fixed bottom-6 right-6 z-40 flex items-center gap-3 bg-[#10161b] border border-white/10 hover:border-caribbean/50 text-white rounded-full px-5 py-3 shadow-[0_10px_30px_rgba(0,0,0,0.3)] cursor-pointer group hover:scale-[1.03] transition-all"
+              className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-40 flex items-center justify-between sm:justify-start gap-2.5 sm:gap-3 bg-[#0C1015]/95 backdrop-blur-xl border border-white/15 hover:border-caribbean/50 text-white rounded-2xl sm:rounded-full px-4 py-3 sm:px-5 sm:py-3 shadow-[0_12px_40px_rgba(0,0,0,0.6),0_0_20px_rgba(0,204,136,0.15)] cursor-pointer group hover:scale-[1.02] transition-all"
               onClick={handleOpenFromReminder}
             >
-              <span className="flex items-center gap-2 text-sm font-semibold tracking-wide select-none">
-                <span className="animate-bounce">🎉</span>
-                Become an Ambassador & Earn Rewards
-              </span>
+              <div className="flex items-center gap-2.5 min-w-0">
+                <div className="w-2.5 h-2.5 rounded-full bg-lemon animate-ping flex-shrink-0" />
+                <span className="text-xs sm:text-sm font-bold tracking-wide truncate text-gray-100 select-none">
+                  Become an Ambassador & Earn Rewards
+                </span>
+              </div>
               <button
                 onClick={handleDismissReminder}
-                className="text-gray-400 hover:text-white hover:bg-white/10 rounded-full p-1 transition-colors ml-1 cursor-pointer"
+                className="text-gray-400 hover:text-white hover:bg-white/10 rounded-full p-1.5 transition-colors cursor-pointer flex-shrink-0 min-w-[36px] min-h-[36px] flex items-center justify-center"
                 title="Dismiss for 24h"
                 aria-label="Dismiss reminder for 24 hours"
               >
-                <X size={14} />
+                <X size={15} />
               </button>
             </motion.div>
           )}
