@@ -111,8 +111,20 @@ export default function Home() {
       if (shouldShowPopup) {
         const timer = setTimeout(() => {
           setIsPopupOpen(true);
-        }, 4000); // 4 seconds delay (between 3-5s)
-        return () => clearTimeout(timer);
+        }, 6000); // 6 seconds delay
+
+        const handleMouseLeave = (e: MouseEvent) => {
+          if (e.clientY <= 10) {
+            setIsPopupOpen(true);
+          }
+        };
+
+        document.addEventListener('mouseleave', handleMouseLeave);
+
+        return () => {
+          clearTimeout(timer);
+          document.removeEventListener('mouseleave', handleMouseLeave);
+        };
       }
     };
 
