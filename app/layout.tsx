@@ -26,7 +26,6 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
       <head>
-        <meta name="monetag" content="9b5e31398afe57d18fd4a76f5f2e4b6d" />
         <link rel="icon" href="https://i.ibb.co/pjxqNW0p/favicon.png" type="image/png" sizes="any" />
       </head>
       <body suppressHydrationWarning className="bg-soft-grey text-charleston antialiased">
