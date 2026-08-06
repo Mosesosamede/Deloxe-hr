@@ -81,6 +81,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       title: post.title,
       description: post.excerpt,
       images: post.image_url ? [post.image_url] : [],
+    },
+    other: {
+      'monetag': '9b5e31398afe57d18fd4a76f5f2e4b6d',
     }
   }
 }

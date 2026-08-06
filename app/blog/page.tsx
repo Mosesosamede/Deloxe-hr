@@ -10,6 +10,7 @@ import Footer from '@/components/Footer';
 import SmoothScroll from '@/components/SmoothScroll';
 import { Badge, Card, CardContent, TopBar } from '@/components/UI-Components';
 import { createClient } from '@/utils/supabase/client';
+import AdBanner from '@/components/AdBanner';
 
 export default function BlogList() {
   const [posts, setPosts] = useState<any[]>([]);
@@ -18,6 +19,14 @@ export default function BlogList() {
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
+    let meta = document.querySelector('meta[name="monetag"]');
+    if (!meta) {
+      meta = document.createElement('meta');
+      meta.setAttribute('name', 'monetag');
+      meta.setAttribute('content', '9b5e31398afe57d18fd4a76f5f2e4b6d');
+      document.head.appendChild(meta);
+    }
+
     async function fetchPosts() {
       const supabase = createClient();
       if (!supabase) return;
@@ -227,6 +236,10 @@ export default function BlogList() {
             )}
           </div>
         </section>
+
+        <div className="max-w-7xl mx-auto px-6 mb-12">
+          <AdBanner />
+        </div>
 
         <Footer />
       </main>
