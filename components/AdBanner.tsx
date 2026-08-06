@@ -7,12 +7,12 @@ export default function AdBanner() {
 
   useEffect(() => {
     // Only run this if we have a container and we haven't already injected the script
-    if (containerRef.current && !containerRef.current.querySelector('script[src="https://nap5k.com/tag.min.js"]')) {
+    if (containerRef.current && !containerRef.current.querySelector('script[src="https://quge5.com/88/tag.min.js"]')) {
       try {
         const script = document.createElement('script');
-        script.dataset.zone = '10892552';
-        script.src = 'https://nap5k.com/tag.min.js';
-        
+        script.dataset.zone = '267435';
+        script.src = 'https://quge5.com/88/tag.min.js';
+        //<script src="https://quge5.com/88/tag.min.js" data-zone="267435" async data-cfasync="false"></script>
         // Instead of document.body, we append to our local container 
         // in case it's an in-place banner.
         containerRef.current.appendChild(script);
