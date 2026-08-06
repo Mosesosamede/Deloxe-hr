@@ -1,12 +1,10 @@
 {
-  "projectId": "gen-lang-client-0871706748",
-  "appId": "1:814569024996:web:baa2e0d9b0f6eeff642bf1",
-  "apiKey": "AIzaSyCfSMgxRykAmI-9ZxDlpIUQ9QjIF5TRA9E",
-  "authDomain": "gen-lang-client-0871706748.firebaseapp.com",
-  "firestoreDatabaseId": "ai-studio-remixremixdeloxe-5593e35b-bb92-45d9-a0f0-360d5131ffb7",
-  "storageBucket": "gen-lang-client-0871706748.firebasestorage.app",
-  "messagingSenderId": "814569024996",
-  "measurementId": "",
-  "oAuthClientId": "814569024996-4jds5irjd2lqpf6mskhvra2jcjfupe18.apps.googleusercontent.com",
-  "recaptchaSiteKey": ""
+  "projectId": "spartan-skein-m5xj8",
+  "appId": "1:573543033560:web:a4ee157eefadc20416c5ad",
+  "apiKey": "AIzaSyCf8BaOrD2Xd51QHdanncKoCXrbnpkoGak",
+  "authDomain": "spartan-skein-m5xj8.firebaseapp.com",
+  "firestoreDatabaseId": "ai-studio-ca59667c-1660-4096-9c60-71b6ce62dc7c",
+  "storageBucket": "spartan-skein-m5xj8.firebasestorage.app",
+  "messagingSenderId": "573543033560",
+  "measurementId": ""
 }
