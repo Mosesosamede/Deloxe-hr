@@ -89,7 +89,7 @@ export default function About() {
                 <Target className="text-caribbean mb-8" size={48} />
                 <h2 className="text-4xl font-display font-bold mb-6">Our Mission</h2>
                 <p className="text-xl text-gray-400 leading-relaxed max-w-xl">
-                  To empower organizations and individuals through innovative HR solutions that bridge the gap between ambition and opportunity, fostering a global workforce that is efficient, compliant, and inspired.
+                  To empower organizations and individuals through innovative  HR solutions that bridge the gap between ambition and opportunity, fostering a global workforce that is efficient, compliant, and inspired.
                 </p>
               </motion.div>
 
