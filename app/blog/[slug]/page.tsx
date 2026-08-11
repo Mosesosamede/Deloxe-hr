@@ -1,6 +1,7 @@
 import type { Metadata } from "next"
 import Image from "next/image"
 import Link from "next/link"
+import Script from "next/script"
 import { notFound } from "next/navigation"
 import { ArrowLeft, Calendar, Clock, User, Share2, Facebook, Twitter, Linkedin, MessageCircle, ArrowRight, CheckCircle } from "lucide-react"
 import ReactMarkdown from "react-markdown"
@@ -111,7 +112,12 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   return (
     <main className="min-h-screen bg-white">
-      <script dangerouslySetInnerHTML={{ __html: "(function(s){s.dataset.zone='10894500',s.src='https://n6wxm.com/vignette.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))" }} />
+      <Script
+        id="vignette-ad"
+        strategy="lazyOnload"
+        src="https://n6wxm.com/vignette.min.js"
+        data-zone="10894500"
+      />
       <TopBar />
       <Navbar isDark={true} />
 

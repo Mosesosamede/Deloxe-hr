@@ -114,32 +114,34 @@ export default function BlogList() {
         {!loading && filteredPosts.length > 0 && searchQuery === '' && (
           <section className="pb-12 px-4 md:px-6">
             <div className="max-w-7xl mx-auto">
-              <Link href={`/blog/${filteredPosts[0].slug}`} className="group">
-                <div className="relative aspect-[4/3] md:aspect-[21/9] rounded-[32px] md:rounded-[40px] overflow-hidden shadow-2xl border border-gray-100 bg-white">
-                  {filteredPosts[0].image_url ? (
-                    <Image 
-                      src={filteredPosts[0].image_url} 
-                      alt={filteredPosts[0].title} 
-                      fill
-                      className="object-cover transition-transform duration-1000 group-hover:scale-105"
-                      priority
-                      referrerPolicy="no-referrer"
-                    />
-                  ) : (
-                    <div className="w-full h-full bg-soft-grey flex items-center justify-center text-gray-300">
-                      Featured Insight
-                    </div>
-                  )}
-                  <div className="absolute inset-0 bg-gradient-to-t from-charleston/80 via-charleston/20 to-transparent" />
-                  <div className="absolute bottom-0 left-0 p-8 md:p-16 max-w-3xl">
-                    <Badge className="bg-caribbean text-charleston mb-6 border-0">Featured Post</Badge>
-                    <h2 className="text-3xl md:text-5xl font-display font-bold text-white mb-6 leading-tight group-hover:text-lemon transition-colors">
-                      {filteredPosts[0].title}
-                    </h2>
-                    <div className="flex items-center gap-8 text-white/60 text-[10px] uppercase font-bold tracking-[0.2em]">
-                      <span className="flex items-center gap-2"><User size={12} className="text-caribbean"/> {filteredPosts[0].author_name || 'Deloxe Team'}</span>
-                      <span className="flex items-center gap-2"><Calendar size={12}/> {new Date(filteredPosts[0].created_at).toLocaleDateString()}</span>
-                      <span className="flex items-center gap-2 font-black text-caribbean tracking-[0.4em]">Read Article <ArrowRight size={12}/></span>
+              <Link href={`/blog/${filteredPosts[0].slug}`} className="group block">
+                <div className="relative aspect-[4/3] md:aspect-[21/9] rounded-3xl md:rounded-[40px] overflow-hidden shadow-2xl border border-gray-200/90 ring-1 ring-black/5 bg-white p-2 md:p-3 transition-all duration-700 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)]">
+                  <div className="relative w-full h-full rounded-[20px] md:rounded-[32px] overflow-hidden bg-gray-100">
+                    {filteredPosts[0].image_url ? (
+                      <Image 
+                        src={filteredPosts[0].image_url} 
+                        alt={filteredPosts[0].title} 
+                        fill
+                        className="object-cover transition-transform duration-1000 group-hover:scale-105"
+                        priority
+                        referrerPolicy="no-referrer"
+                      />
+                    ) : (
+                      <div className="w-full h-full bg-soft-grey flex items-center justify-center text-gray-300 font-sans font-medium">
+                        Featured Insight
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-charleston/90 via-charleston/30 to-transparent" />
+                    <div className="absolute bottom-0 left-0 p-6 md:p-14 max-w-3xl">
+                      <Badge className="bg-caribbean text-charleston mb-4 md:mb-6 border-0 font-extrabold">Featured Post</Badge>
+                      <h2 className="text-2xl md:text-5xl font-display font-bold text-white mb-4 md:mb-6 leading-tight group-hover:text-lemon transition-colors">
+                        {filteredPosts[0].title}
+                      </h2>
+                      <div className="flex items-center gap-6 text-white/70 text-[10px] uppercase font-bold tracking-[0.2em]">
+                        <span className="flex items-center gap-2"><User size={12} className="text-caribbean"/> {filteredPosts[0].author_name || 'Deloxe Team'}</span>
+                        <span className="flex items-center gap-2"><Calendar size={12}/> {new Date(filteredPosts[0].created_at).toLocaleDateString()}</span>
+                        <span className="flex items-center gap-2 font-black text-caribbean tracking-[0.4em]">Read Article <ArrowRight size={12}/></span>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -149,7 +151,7 @@ export default function BlogList() {
         )}
 
         {/* Posts Grid */}
-        <section className="py-24 px-6">
+        <section className="py-16 md:py-24 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="mb-16 flex items-center justify-between">
                <h2 className="text-3xl font-display font-bold text-charleston">
@@ -159,61 +161,61 @@ export default function BlogList() {
             </div>
 
             {loading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 {[1, 2, 3].map(i => (
-                  <div key={i} className="animate-pulse bg-white rounded-[40px] h-[500px]" />
+                  <div key={i} className="animate-pulse bg-white rounded-[32px] h-[480px] border border-gray-100" />
                 ))}
               </div>
             ) : filteredPosts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                 <AnimatePresence>
                   {(searchQuery !== '' ? filteredPosts : filteredPosts.slice(1)).map((post, idx) => (
                     <motion.div
                       key={post.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.1 }}
+                      transition={{ delay: idx * 0.08 }}
                       layout
                     >
-                      <Link href={`/blog/${post.slug}`} className="group">
-                        <Card className="h-full flex flex-col hover:-translate-y-2">
-                          <div className="relative aspect-[16/10] overflow-hidden">
+                      <Link href={`/blog/${post.slug}`} className="group block h-full">
+                        <Card className="h-full flex flex-col hover:-translate-y-2 rounded-3xl border border-gray-200/80 shadow-md hover:shadow-2xl transition-all duration-500 p-2 bg-white">
+                          <div className="relative aspect-[16/10] overflow-hidden rounded-[20px] bg-gray-100">
                             {post.image_url ? (
                               <Image 
                                 src={post.image_url} 
                                 alt={post.title} 
                                 fill
-                                className="object-cover transition-transform duration-700 group-hover:scale-110"
+                                className="object-cover transition-transform duration-700 group-hover:scale-105"
                                 referrerPolicy="no-referrer"
                               />
                             ) : (
-                              <div className="w-full h-full bg-soft-grey flex items-center justify-center text-gray-300">
-                                No Image Available
+                              <div className="w-full h-full bg-soft-grey flex items-center justify-center text-gray-300 font-sans text-xs font-bold uppercase tracking-widest">
+                                No Image
                               </div>
                             )}
-                            <div className="absolute top-6 left-6">
-                              <Badge className="bg-white/90 backdrop-blur-md border-0">{post.category}</Badge>
+                            <div className="absolute top-4 left-4">
+                              <Badge className="bg-white/95 backdrop-blur-md border border-gray-200/50 shadow-sm text-charleston">{post.category}</Badge>
                             </div>
                           </div>
-                          <CardContent className="flex-1 flex flex-col">
-                            <div className="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-6">
+                          <CardContent className="flex-1 flex flex-col p-6">
+                            <div className="flex items-center gap-4 text-[10px] font-bold text-gray-400 uppercase tracking-widest mb-4">
                               <span className="flex items-center gap-1.5"><Calendar size={12} /> <span suppressHydrationWarning>{new Date(post.created_at).toLocaleDateString()}</span></span>
                               <span className="flex items-center gap-1.5"><Clock size={12} /> {post.read_time || '5 min read'}</span>
                             </div>
-                            <h3 className="text-2xl font-display font-bold text-charleston mb-4 group-hover:text-[#1B4332] transition-colors leading-tight">
+                            <h3 className="text-xl md:text-2xl font-display font-bold text-charleston mb-3 group-hover:text-[#1B4332] transition-colors leading-tight">
                               {post.title}
                             </h3>
-                            <p className="text-gray-500 text-sm leading-relaxed mb-8 line-clamp-3">
+                            <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
                               {post.excerpt || post.content.substring(0, 150) + '...'}
                             </p>
-                            <div className="mt-auto pt-6 border-t border-gray-100 flex items-center justify-between">
+                            <div className="mt-auto pt-5 border-t border-gray-100 flex items-center justify-between">
                               <div className="flex items-center gap-2">
                                 <div className="w-8 h-8 bg-[#1B4332] rounded-lg flex items-center justify-center text-white text-[10px] uppercase font-bold">
                                   {post.author_name?.charAt(0) || 'D'}
                                 </div>
                                 <span className="text-xs font-bold text-charleston">{post.author_name || 'Deloxe Team'}</span>
                               </div>
-                              <ArrowRight className="text-gray-300 group-hover:text-[#1B4332] group-hover:translate-x-1 transition-all" size={20} />
+                              <ArrowRight className="text-gray-300 group-hover:text-[#1B4332] group-hover:translate-x-1 transition-all" size={18} />
                             </div>
                           </CardContent>
                         </Card>
