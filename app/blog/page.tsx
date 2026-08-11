@@ -137,10 +137,10 @@ export default function BlogList() {
                       <h2 className="text-2xl md:text-5xl font-display font-bold text-white mb-4 md:mb-6 leading-tight group-hover:text-lemon transition-colors">
                         {filteredPosts[0].title}
                       </h2>
-                      <div className="flex items-center gap-6 text-white/70 text-[10px] uppercase font-bold tracking-[0.2em]">
+                      <div className="flex items-center gap-6 text-white/80 text-[10px] uppercase font-bold tracking-[0.2em]">
                         <span className="flex items-center gap-2"><User size={12} className="text-caribbean"/> {filteredPosts[0].author_name || 'Deloxe Team'}</span>
                         <span className="flex items-center gap-2"><Calendar size={12}/> {new Date(filteredPosts[0].created_at).toLocaleDateString()}</span>
-                        <span className="flex items-center gap-2 font-black text-caribbean tracking-[0.4em]">Read Article <ArrowRight size={12}/></span>
+                        <span className="flex items-center gap-2 font-black text-caribbean tracking-[0.3em] group-hover:translate-x-1 transition-transform">Read Article <ArrowRight size={14}/></span>
                       </div>
                     </div>
                   </div>
@@ -151,7 +151,7 @@ export default function BlogList() {
         )}
 
         {/* Posts Grid */}
-        <section className="py-16 md:py-24 px-6">
+        <section className="py-24 px-6">
           <div className="max-w-7xl mx-auto">
             <div className="mb-16 flex items-center justify-between">
                <h2 className="text-3xl font-display font-bold text-charleston">
@@ -161,24 +161,24 @@ export default function BlogList() {
             </div>
 
             {loading ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 {[1, 2, 3].map(i => (
-                  <div key={i} className="animate-pulse bg-white rounded-[32px] h-[480px] border border-gray-100" />
+                  <div key={i} className="animate-pulse bg-white rounded-[40px] h-[500px]" />
                 ))}
               </div>
             ) : filteredPosts.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
                 <AnimatePresence>
                   {(searchQuery !== '' ? filteredPosts : filteredPosts.slice(1)).map((post, idx) => (
                     <motion.div
                       key={post.id}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: idx * 0.08 }}
+                      transition={{ delay: idx * 0.1 }}
                       layout
                     >
-                      <Link href={`/blog/${post.slug}`} className="group block h-full">
-                        <Card className="h-full flex flex-col hover:-translate-y-2 rounded-3xl border border-gray-200/80 shadow-md hover:shadow-2xl transition-all duration-500 p-2 bg-white">
+                      <Link href={`/blog/${post.slug}`} className="group">
+                        <Card className="h-full flex flex-col hover:-translate-y-2 rounded-3xl border border-gray-200/90 shadow-md hover:shadow-2xl transition-all duration-500 p-2 bg-white">
                           <div className="relative aspect-[16/10] overflow-hidden rounded-[20px] bg-gray-100">
                             {post.image_url ? (
                               <Image 
@@ -190,11 +190,11 @@ export default function BlogList() {
                               />
                             ) : (
                               <div className="w-full h-full bg-soft-grey flex items-center justify-center text-gray-300 font-sans text-xs font-bold uppercase tracking-widest">
-                                No Image
+                                No Image Available
                               </div>
                             )}
                             <div className="absolute top-4 left-4">
-                              <Badge className="bg-white/95 backdrop-blur-md border border-gray-200/50 shadow-sm text-charleston">{post.category}</Badge>
+                              <Badge className="bg-white/95 backdrop-blur-md border border-gray-200/50 shadow-sm text-charleston font-bold">{post.category}</Badge>
                             </div>
                           </div>
                           <CardContent className="flex-1 flex flex-col p-6">
@@ -202,11 +202,11 @@ export default function BlogList() {
                               <span className="flex items-center gap-1.5"><Calendar size={12} /> <span suppressHydrationWarning>{new Date(post.created_at).toLocaleDateString()}</span></span>
                               <span className="flex items-center gap-1.5"><Clock size={12} /> {post.read_time || '5 min read'}</span>
                             </div>
-                            <h3 className="text-xl md:text-2xl font-display font-bold text-charleston mb-3 group-hover:text-[#1B4332] transition-colors leading-tight">
+                            <h3 className="text-2xl font-display font-bold text-charleston mb-3 group-hover:text-[#1B4332] transition-colors leading-tight">
                               {post.title}
                             </h3>
                             <p className="text-gray-500 text-sm leading-relaxed mb-6 line-clamp-3">
-                              {post.excerpt || post.content.substring(0, 150) + '...'}
+                              {post.excerpt || post.content?.substring(0, 150) + '...'}
                             </p>
                             <div className="mt-auto pt-5 border-t border-gray-100 flex items-center justify-between">
                               <div className="flex items-center gap-2">
@@ -215,7 +215,9 @@ export default function BlogList() {
                                 </div>
                                 <span className="text-xs font-bold text-charleston">{post.author_name || 'Deloxe Team'}</span>
                               </div>
-                              <ArrowRight className="text-gray-300 group-hover:text-[#1B4332] group-hover:translate-x-1 transition-all" size={18} />
+                              <span className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1B4332] group-hover:text-caribbean transition-colors">
+                                Read <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+                              </span>
                             </div>
                           </CardContent>
                         </Card>
