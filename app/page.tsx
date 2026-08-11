@@ -5,6 +5,7 @@ import { ArrowRight, Users, Briefcase, ChevronDown, Calendar, Clock, Gift, X } f
 import Navbar from '@/components/Navbar';
 import SmoothScroll from '@/components/SmoothScroll';
 import Footer from '@/components/Footer';
+import TypewriterHeadline from '@/components/TypewriterHeadline';
 import Link from 'next/link';
 import { useState, useEffect, useRef } from 'react';
 import { createClient } from '@/utils/supabase/client';
@@ -330,37 +331,8 @@ export default function Home() {
           </motion.div>
 
 {/* Center Headline Overlay */}
-<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none hidden md:block">
-  <motion.div
-    initial={{ opacity: 0, scale: 0.8, y: -20 }}
-    animate={{ opacity: 1, scale: 1, y: 0 }}
-    transition={{
-      delay: 1.4,
-      duration: 1,
-      ease: [0.22, 1, 0.36, 1],
-    }}
-    className="
-      bg-charleston/95
-      backdrop-blur-xl
-      text-white
-      px-8
-      py-5
-      rounded-full
-      border
-      border-white/15
-      shadow-2xl
-      text-center
-      whitespace-nowrap
-      min-h-[72px]
-      flex
-      items-center
-      justify-center
-    "
-  >
-    <h1 className="text-xl lg:text-1xl font-display font-medium leading-tight tracking-tight">
-      Where <span className="text-lemon font-bold italic">Ambition</span> Meets Opportunity
-    </h1>
-  </motion.div>
+<div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 pointer-events-none w-full px-4 flex justify-center">
+  <TypewriterHeadline />
 </div>
           {/* Scroll Indicator */}
           <motion.div 
