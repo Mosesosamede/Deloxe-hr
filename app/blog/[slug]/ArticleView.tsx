@@ -74,8 +74,93 @@ export default function ArticleView({ post, relatedPosts }: ArticleViewProps) {
 
   const sections = parseSections(post.content || '');
 
+  const parseTags = (tags: any): string[] => {
+    if (!tags) return [];
+    if (Array.isArray(tags)) {
+      return tags.map(t => String(t).trim()).filter(Boolean);
+    }
+    if (typeof tags === 'string') {
+      try {
+        const parsed = JSON.parse(tags);
+        if (Array.isArray(parsed)) {
+          return parsed.map(t => String(t).trim()).filter(Boolean);
+        }
+      } catch {
+        return tags.split(',').map(t => t.trim()).filter(Boolean);
+      }
+    }
+    return [];
+  };
+
+  const tagsArray = parseTags(post.tags);
+
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://deloxehr.com';
+  const postUrl = `${baseUrl}/blog/${post.slug}`;
+
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.excerpt || post.meta_description || post.title,
+    image: post.image_url ? [post.image_url] : [],
+    datePublished: post.created_at,
+    dateModified: post.updated_at || post.created_at,
+    articleSection: post.category,
+    keywords: tagsArray.join(', '),
+    author: {
+      '@type': 'Person',
+      name: post.author_name || 'Deloxe Team',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Deloxe HR Consulting',
+      url: baseUrl,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${baseUrl}/icon.png`,
+      },
+    },
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': postUrl,
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: 'Home',
+        item: baseUrl,
+      },
+      {
+        '@type': 'ListItem',
+        position: 2,
+        name: 'Blog',
+        item: `${baseUrl}/blog`,
+      },
+      {
+        '@type': 'ListItem',
+        position: 3,
+        name: post.title,
+        item: postUrl,
+      },
+    ],
+  };
+
   return (
     <main className="min-h-screen bg-white">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
       <Script
         id="vignette-ad"
         strategy="lazyOnload"
@@ -95,8 +180,16 @@ export default function ArticleView({ post, relatedPosts }: ArticleViewProps) {
           >
             <ArrowLeft className="h-3 w-3" /> Back to Articles
           </Link>
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center flex-wrap items-center gap-3 mb-8">
             <Badge className="bg-[#D4AF37] text-white border-0 shadow-lg px-6 py-2 font-bold">{post.category}</Badge>
+            {tagsArray.map((tag, idx) => (
+              <span 
+                key={idx}
+                className="bg-white/15 text-white border border-white/25 backdrop-blur-md px-4 py-1.5 rounded-full text-xs font-bold tracking-wide shadow-sm"
+              >
+                {tag}
+              </span>
+            ))}
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-6xl font-display font-bold text-white mb-10 leading-tight">
             {post.title}
@@ -315,6 +408,21 @@ export default function ArticleView({ post, relatedPosts }: ArticleViewProps) {
                   );
                 })}
               </div>
+              
+              {/* Dynamic Database Tags Footer */}
+              {tagsArray.length > 0 && (
+                <div className="mt-12 pt-8 border-t border-gray-100 flex flex-wrap items-center gap-3">
+                  <span className="text-xs font-black uppercase tracking-widest text-gray-400">Database Tags:</span>
+                  {tagsArray.map((tag, idx) => (
+                    <span
+                      key={idx}
+                      className="bg-soft-grey text-charleston border border-gray-200 px-4 py-1.5 rounded-full text-xs font-bold tracking-wide shadow-sm hover:bg-[#1B4332] hover:text-white transition-all cursor-default"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
             </article>
 
             {/* Author Card */}

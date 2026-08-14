@@ -38,18 +38,39 @@ async function getRelatedPosts(slug: string, category: string) {
   return data
 }
 
+// Helper to parse tags from database
+function parseTags(tags: any): string[] {
+  if (!tags) return []
+  if (Array.isArray(tags)) {
+    return tags.map(t => String(t).trim()).filter(Boolean)
+  }
+  if (typeof tags === 'string') {
+    try {
+      const parsed = JSON.parse(tags)
+      if (Array.isArray(parsed)) {
+        return parsed.map(t => String(t).trim()).filter(Boolean)
+      }
+    } catch {
+      return tags.split(',').map(t => t.trim()).filter(Boolean)
+    }
+  }
+  return []
+}
+
 // 2. SEO Metadata
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { slug } = await params
   const post = await getPostBySlug(slug)
   if (!post) return { title: "Post Not Found" }
 
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || ''
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || 'https://deloxehr.com'
   const postUrl = `${baseUrl}/blog/${slug}`
+  const tagsArray = parseTags(post.tags)
 
   return {
     title: `${post.meta_title || post.title} | Deloxe HR Consulting`,
     description: post.meta_description || post.excerpt,
+    keywords: tagsArray.length > 0 ? tagsArray : undefined,
     alternates: {
       canonical: postUrl,
     },
