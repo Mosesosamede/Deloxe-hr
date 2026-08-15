@@ -208,24 +208,24 @@ export default function ArticleView({ post, relatedPosts }: ArticleViewProps) {
         </div>
       </section>
 
-      {/* Featured Image - iOS style with softly rounded corners and polished border */}
-      <div className="max-w-5xl mx-auto px-6 -mt-20 sm:-mt-24 relative z-20 mb-12 md:mb-16">
-        <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-3xl md:rounded-[40px] overflow-hidden shadow-2xl border border-gray-200/90 ring-1 ring-black/5 bg-white p-2 md:p-3 transition-all duration-700 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] group">
-          <div className="relative w-full h-full rounded-[18px] md:rounded-[32px] overflow-hidden bg-gray-100">
-            {post.image_url ? (
-              <Image 
-                src={post.image_url} 
-                alt={post.title} 
-                fill 
-                className="object-cover transition-transform duration-1000 group-hover:scale-105" 
-                priority 
-                referrerPolicy="no-referrer"
-              />
-            ) : (
-              <div className="w-full h-full flex items-center justify-center text-gray-300 font-sans font-medium">
-                Featured Image Not Found
-              </div>
-            )}
+{/* Featured Image - iOS style with a slim polished border */}
+<div className="max-w-5xl mx-auto px-6 -mt-20 sm:-mt-24 relative z-20 mb-12 md:mb-16">
+  <div className="relative aspect-[16/9] md:aspect-[21/9] rounded-3xl md:rounded-[40px] overflow-hidden shadow-2xl border border-gray-200/90 ring-1 ring-black/5 bg-white p-1 md:p-1.5 transition-all duration-700 hover:shadow-[0_30px_60px_-15px_rgba(0,0,0,0.15)] group">
+    <div className="relative w-full h-full rounded-[20px] md:rounded-[34px] overflow-hidden bg-gray-100">
+      {post.image_url ? (
+        <Image 
+          src={post.image_url} 
+          alt={post.title} 
+          fill 
+          className="object-cover transition-transform duration-1000 group-hover:scale-105" 
+          priority 
+          referrerPolicy="no-referrer"
+        />
+      ) : (
+        <div className="w-full h-full flex items-center justify-center text-gray-300 font-sans font-medium">
+          Featured Image Not Found
+        </div>
+      )}
           </div>
         </div>
       </div>
