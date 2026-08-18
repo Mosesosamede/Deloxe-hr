@@ -27,6 +27,7 @@ export default function RootLayout({children}: {children: React.ReactNode}) {
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
       <head>
         <link rel="icon" href="https://i.ibb.co/pjxqNW0p/favicon.png" type="image/png" sizes="any" />
+        <meta name="msvalidate.01" content="3CD52608B2A22C800848484576FCF4F8" />
       </head>
       <body suppressHydrationWarning className="bg-soft-grey text-charleston antialiased">
         <Providers>
